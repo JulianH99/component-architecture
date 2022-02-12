@@ -1,1 +1,25 @@
-  
+services:
+  base_orm:
+    src: ./base_orm
+    dist: ./orm/core
+    build: python
+  mysql_orm:
+    src: ./mysql_orm
+    dist: ./orchestrator/orm
+    build: python
+    dependencies:
+      - base_orm
+  api:
+    src: ./api
+    dist: ./orchestrator/api
+    dependencies:
+      - mysql_orm
+    run: python main.py
+    build: python
+  frontend:
+    src: ./frontend
+    dist: ./orchestrator/frontend
+    dependencies:
+      - api
+    run: npm run dev
+    build: vue
