@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{% block title %} {% endblock %}</title>
+        <style>
+            .cms-title {
+                border-radius: 10px;
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="columns my-3">
+                <div class="column">
+                    <h1
+                        class="title has-text-white has-background-primary py-2 px-5 cms-title"
+                    >
+                        Garden CMS
+                    </h1>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(category_filter=['error'])
+            %} {% if messages %}
+
+            <div class="notification is-danger block my-2">
+                {% for error in messages %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            {% endif %} {% endwith %}
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    {% include 'includes/menu.html' %}
+                </div>
+
+                <div class="column">{% block content%} {% endblock %}</div>
+            </div>
+        </div>
+    </body>
+</html>
