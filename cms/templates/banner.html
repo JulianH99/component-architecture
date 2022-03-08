@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %} {% block title %} CMS / Banner configuration
+{% endblock %} {% block content %} {% block head %}
+
+<script src="/static/js/file.js" defer></script>
+
+{% endblock %}
+<h2 class="subtitle">Banner configuration</h2>
+
+<form class="form" enctype="multipart/form-data" method="post">
+    <div class="field">
+        <label for="banner-title" class="label">Title</label>
+        <input
+            type="text"
+            name="banner-title"
+            id="banner-title"
+            class="input"
+            value="{{ banner_configuration.title }}"
+        />
+    </div>
+
+    <div class="field">
+        <label for="banner-description" class="label">Description</label>
+        <textarea
+            name="banner-description"
+            id="banner-description"
+            class="input"
+        >
+{{ banner_configuration.description }}</textarea
+        >
+    </div>
+
+    <div class="field">
+        <label for="banner-background" class="label">Background image</label>
+        <div class="file has-name">
+            <label class="file-label">
+                <input
+                    id="banner-background"
+                    class="file-input"
+                    type="file"
+                    name="banner-background"
+                />
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label"> Choose a file… </span>
+                </span>
+                <span class="file-name" id="banner-background-file-name">
+                    No file name
+                </span>
+            </label>
+        </div>
+
+        {% if banner_configuration.background_image %}
+        <img src="{{ banner_configuration.background_image }}" class="mt-3" />
+        {% endif %}
+    </div>
+
+    <div class="field">
+        <button class="button is-primary" type="submit">Save</button>
+    </div>
+</form>
+
+{% endblock %}

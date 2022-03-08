@@ -12,6 +12,7 @@
                 display: inline;
             }
         </style>
+        {% block head %} {% endblock %}
     </head>
     <body>
         <div class="container">
@@ -34,7 +35,7 @@
             </div>
 
             {% endif %} {% endwith %}
-            <div class="columns">
+            <div class="columns mt-5">
                 <div class="column is-one-quarter">
                     {% include 'includes/menu.html' %}
                 </div>
