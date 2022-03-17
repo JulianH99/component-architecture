@@ -3,3 +3,7 @@ run-cms:
 
 setup-cms:
 	cd cms && python setup.py bdist_wheel --universal
+
+
+orchestrate:
+	python orchestrator/main.py

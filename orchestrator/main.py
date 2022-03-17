@@ -3,6 +3,10 @@ import os
 import yaml
 import shutil
 
+
+COMPONENT_CONFIG_FILE_NAME = 'config.yml'
+
+
 # with open(os.path.join(os.getcwd(), 'services.yml')) as file:
 #     config = yaml.safe_load(file)
 #     services = config['services']
@@ -71,12 +75,22 @@ import shutil
 current_dir = os.getcwd()
 
 
-packages = [f.path for f in os.scandir(
+components = [f.path for f in os.scandir(
     current_dir) if f.is_dir() and f.name != 'orchestrator' and not f.name.startswith('.')]
 
-for package in packages:
-    # config_file =
-    pass
+component_configs = {}
+
+for component_path in components:
+    component_name = component_path.split(os.sep)[-1]
+    config_file_path = os.path.join(component_path, COMPONENT_CONFIG_FILE_NAME)
+
+    with open(config_file_path, 'r') as config_content:
+        component_configs[component_name] = yaml.safe_load(config_content)
 
 
-print(packages)
+# define priority
+components_with_dependencies = filter(lambda cc: 'dependencies' in cc, component_configs)
+
+
+
+

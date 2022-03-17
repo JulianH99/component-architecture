@@ -82,7 +82,8 @@ def show_banner_configuration():
 
         if not banner_configuration:
             banner_configuration = Banner(
-                title=form_data['banner-title'], description=form_data['banner-description'], background_image=path_filename)
+                title=form_data['banner-title'], description=form_data['banner-description'],
+                background_image=path_filename)
             db.session.add(banner_configuration)
         else:
             banner_configuration.title = form_data['banner-title']

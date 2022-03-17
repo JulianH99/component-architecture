@@ -1,0 +1,7 @@
+build: npm run build
+run: webpage
+dependencies:
+    - inventory
+meta:
+    url: /quoting
+package: frontend
