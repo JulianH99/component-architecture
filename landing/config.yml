@@ -1,7 +1,7 @@
+type: js-framework
 build: npm run build
-run: webpage
+webroot: dist
 package: frontend
+port: 8080
 dependencies:
     - cms
-meta:
-    url: /

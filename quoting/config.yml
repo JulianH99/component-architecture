@@ -1,7 +1,5 @@
+type: js-framework
 build: npm run build
-run: webpage
-dependencies:
-    - inventory
-meta:
-    url: /quoting
+webroot: dist
 package: frontend
+port: 8081

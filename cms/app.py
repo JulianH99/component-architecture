@@ -8,12 +8,12 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'static', 'uploads')
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
 
 app.debug = True
 app.secret_key = 'gPbM^#;49m9g+swb@Pl]X5qB@.tb%t'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/gardens'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gardens:gardens@db:3306/gardens'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
