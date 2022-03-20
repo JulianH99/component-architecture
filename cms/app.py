@@ -13,7 +13,8 @@ UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.debug = True
 app.secret_key = 'gPbM^#;49m9g+swb@Pl]X5qB@.tb%t'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gardens:gardens@db:3306/gardens'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gardens:gardens@db:3306/gardens'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost:3306/gardens'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -93,6 +94,26 @@ def show_banner_configuration():
         db.session.commit()
 
         return redirect(request.url)
+
+@app.get('/api/banner')
+def get_api_banner():
+    banner_configuration = Banner.query.get(1)
+    banner_configuration.background_image = f"{request.base_url}{banner_configuration.background_image}"
+
+    return jsonify({
+        'title': banner_configuration.title,
+        'description': banner_configuration.description,
+        'background_image': banner_configuration.background_image
+    })
+
+@app.get('/api/title')
+def get_api_title():
+    config = Site.query.first()
+
+    return jsonify({
+        'title': config.name
+    })
+
 
 
 if __name__ == '__main__':
