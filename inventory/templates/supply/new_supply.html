@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+
+{% block title %} New Supply {% endblock %}
+{% block content %}
+    <h2 class="subtitle">New Supply</h2>
+    <form class="form" method="post">
+        <div class="field">
+            <label class="label">SKU</label>
+            <div class="control">
+                <input class="input" type="text" name="sku" placeholder="SKU">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" name="name" placeholder="Name">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Price</label>
+            <div class="control">
+                <input class="input" type="number" name="price" placeholder="Price">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Stock Available</label>
+            <div class="control">
+                <input class="input" type="number" name="stock" placeholder="Stock Available">
+            </div>
+        </div>
+        <input class="button is-success" type="submit" value="Save">
+    </form>
+{% endblock %}

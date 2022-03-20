@@ -1,0 +1,25 @@
+{% extends "layouts/main.html" %}
+
+{% block title %} List Supplies {% endblock %}
+{% block content %}
+    <h2 class="subtitle">List Supplies</h2>
+    <a class="button is-primary" href="{{ url_for('new_supply') }}">New</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Suggested Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for supply in supplies %}
+            <tr>
+                <td>{{ supply.name }}</td>
+                <td>{{ supply.stock }}</td>
+                <td>{{ supply.price_suggested }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

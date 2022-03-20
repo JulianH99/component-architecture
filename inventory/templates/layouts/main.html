@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{% block title %} {% endblock %}</title>
+        <style>
+            .cms-title {
+                border-radius: 10px;
+                display: inline;
+            }
+        </style>
+        {% block head %} {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% with messages = get_flashed_messages(category_filter=['error'])
+            %} {% if messages %}
+
+            <div class="notification is-danger block my-2">
+                {% for error in messages %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            {% endif %} {% endwith %}
+            {% include 'includes/menu.html' %}
+            {% block content%} {% endblock %}
+        </div>
+    </body>
+</html>
