@@ -1,4 +1,6 @@
+from email import message
 import site
+import json
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
@@ -29,16 +31,37 @@ if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 
-@app.get('/support/active')
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+
+@app.route('/support/active')
 def get_active_support():
     return ''
 
 
-@app.post('/save-message')
+@app.route('/save-message')
 def update_message():
-    return ''
+    form_data = request.form
+    if not (form_data['business'] and form_data['email'] and form_data['message']):
+        flash("Error: Empty fields")
+        return redirect(request.url)
+    try:
+        message = Message(
+            business=form_data['business'],
+            email=form_data['email'],
+            message=form_data['message'],
+        )
+        db.session.add(message)
+        db.session.commit()
+        flash("add new message")
+        return redirect('landing.html')
+    except:
+        return redirect(request.url)
 
 
-@app.get('/support/messages')
+@app.route('/support/messages')
 def show_messages():
-    return ''
+    messages = Message.query.all()
+    return json.loads(messages)
