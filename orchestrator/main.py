@@ -1,96 +1,24 @@
-import glob
-import os
-import yaml
-import shutil
-
-
-COMPONENT_CONFIG_FILE_NAME = 'config.yml'
-
-
-# with open(os.path.join(os.getcwd(), 'services.yml')) as file:
-#     config = yaml.safe_load(file)
-#     services = config['services']
-
-#     for service_name, service_conf in services.items():
-#         src_path = os.path.join(os.getcwd(), service_conf['src'])
-#         if not os.path.isdir(src_path):
-#             raise Exception(
-#                 "%s component is missing from the file structure" % service_name)
-
-#         build_type = service_conf['build']
-
-#         print(f"Building {service_name}...")
-
-#         if build_type == 'python':
-
-#             setup_file = os.path.join(src_path, 'setup.py')
-
-#             if not os.path.isfile(setup_file):
-#                 raise Exception('%s has invalid configuration set. %s is not present in the service\'s source directory' % (
-#                     service_name, 'setup.py'))
-
-#             os.system(f"cd {src_path} && python {setup_file} bdist_wheel")
-
-#             dist_match = glob.glob(os.path.join(src_path, 'dist', '*.whl'))
-
-#             if len(dist_match) == 0:
-#                 raise Exception("%s failed building process" % service_name)
-
-#             dist_file_name = f'{service_name}.whl'
-
-#             dist_path = os.path.join(
-#                 os.getcwd(), service_conf['dist'])
-
-#             if not os.path.isdir(dist_path):
-#                 os.mkdir(dist_path)
-
-#             os.rename(dist_match[0], os.path.join(dist_path, dist_file_name))
-
-#         elif build_type == 'copy':
-#             src_path = os.path.join(os.getcwd(), service_conf['src'])
-#             dist_path = os.path.join(os.getcwd(), service_conf['dist'])
-
-#             if os.path.isdir(dist_path):
-#                 shutil.rmtree(dist_path)
-
-#             shutil.copytree(src_path, dist_path)
-
-#         elif build_type == 'vue':
-#             os.system("cd %s && npm run build" % service_name)
-
-#             if not os.path.isdir(os.path.join(src_path, 'dist')):
-#                 raise Exception("%s building process failed" % service_name)
-
-#             build_path = os.path.join(src_path, 'dist')
-#             dist_path = os.path.join(os.getcwd(), service_conf['dist'])
-
-#             if os.path.isdir(dist_path):
-#                 shutil.rmtree(dist_path)
-
-#             shutil.copytree(build_path, dist_path)
-
-#         print("Finished building %s" % service_name)
-
-
-current_dir = os.getcwd()
-
-
-components = [f.path for f in os.scandir(
-    current_dir) if f.is_dir() and f.name != 'orchestrator' and not f.name.startswith('.')]
-
-component_configs = {}
-
-for component_path in components:
-    component_name = component_path.split(os.sep)[-1]
-    config_file_path = os.path.join(component_path, COMPONENT_CONFIG_FILE_NAME)
-
-    with open(config_file_path, 'r') as config_content:
-        component_configs[component_name] = yaml.safe_load(config_content)
-
-
-# define priority
-components_with_dependencies = filter(lambda cc: 'dependencies' in cc, component_configs)
+from config_chain import initialize_chain
+from config import MysqlDatabaseConfiguration
+from orchestrator import Orchestrator
 
 
 
+mysql_configuration = MysqlDatabaseConfiguration('mysql:5.7')\
+    .add_database_user('gardens')\
+    .add_database_name('gardens')\
+    .add_database_password('gardens')\
+    .add_root_password('root')
 
+
+config_handler = initialize_chain()
+
+orchestrator = Orchestrator()
+
+orchestrator.set_config_handler(config_handler)
+orchestrator.set_database_configuration(mysql_configuration)
+
+orchestrator.collect_packages()
+orchestrator.configure_packages()
+orchestrator.connect_packages()
+orchestrator.run_packages()

@@ -6,3 +6,6 @@ __pycache__
 /**/*.wh
 .idea
 venv/
+.database-data
+/**/Dockerfile
+docker-compose.yml

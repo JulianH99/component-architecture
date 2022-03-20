@@ -1,7 +1,4 @@
-build: npm run build
-run: webpage
-package: frontend
-meta:
-    url: /support
-dependencies:
-    - cms
+type: flask
+package: backend
+port: 5100
+
