@@ -19,10 +19,6 @@ class FlaskConfigurationBuilder(AbstractConfigBuilder):
     def _get_workdir(config_name) -> str:
         return f'/app-{config_name}'
 
-    @staticmethod
-    def _get_port(port) -> str:
-        return f'FLASK_PORT={port}'
-
     def get_configuration_lines(self, config) -> List[str]:
         config_lines = []
 
@@ -37,9 +33,9 @@ class FlaskConfigurationBuilder(AbstractConfigBuilder):
             'COPY . .'
         ])
 
-        config_lines.append(f"ENV {self._get_port(config['port'])}")
         config_lines.append(f"EXPOSE {config['port']}")
-        config_lines.append("CMD ./wait-for-it.sh -t 60 db:$DATABASE_PORT -- python -m flask run --host=0.0.0.0")
+        config_lines.append(
+            f"CMD ./wait-for-it.sh -t 60 db:$DATABASE_PORT -- python -m flask run --host=0.0.0.0 --port={config['port']}")
 
         return config_lines
 

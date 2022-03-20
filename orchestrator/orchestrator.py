@@ -3,6 +3,7 @@ import yaml
 from docker_builder import DockerBuilder, DockerComposeBuilder
 from config import MysqlDatabaseConfiguration
 
+
 class Orchestrator:
 
     def __init__(self):
@@ -58,12 +59,10 @@ class Orchestrator:
         self.docker_compose_yml = docker_compose.get_configuration(
             lambda config: yaml.dump(config, allow_unicode=True, default_flow_style=False))
 
-
-
     def run_packages(self):
         with open('docker-compose.yml', 'w+') as f:
             f.write(self.docker_compose_yml)
         try:
-            os.system("docker-compose up")
+            os.system("docker-compose up --build")
         except:
             print("Program exited")
