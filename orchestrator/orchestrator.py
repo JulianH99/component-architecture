@@ -15,6 +15,11 @@ class Orchestrator:
     def set_database_configuration(self, database_configuration):
         self.database_configuration = database_configuration
 
+
+    def remove_built_packages(self):
+        if os.path.isfile(os.path.join(os.getcwd(), 'docker-compose.yml')):
+            os.system("docker-compose rm -s -f")
+
     def collect_packages(self):
         COMPONENT_CONFIG_FILE_NAME = 'config.yml'
 
