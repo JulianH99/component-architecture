@@ -92,7 +92,7 @@ def show_banner_configuration():
         else:
             banner_configuration.title = form_data['banner-title']
             banner_configuration.description = form_data['banner-description']
-            banner_configuration.background_image = f'/static/uploads/{filename}'
+            banner_configuration.background_image = f'static/uploads/{filename}'
 
         db.session.commit()
 
@@ -101,7 +101,7 @@ def show_banner_configuration():
 @app.get('/api/banner')
 def get_api_banner():
     banner_configuration = Banner.query.get(1)
-    banner_configuration.background_image = f"{request.host_url[:-1]}{banner_configuration.background_image}"
+    banner_configuration.background_image = f"{request.host_url}{banner_configuration.background_image}"
 
     return jsonify({
         'title': banner_configuration.title,
