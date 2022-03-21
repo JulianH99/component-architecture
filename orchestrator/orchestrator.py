@@ -1,7 +1,7 @@
 import os
 import yaml
 from docker_builder import DockerBuilder, DockerComposeBuilder
-from config import MysqlDatabaseConfiguration
+
 
 
 class Orchestrator:
@@ -49,14 +49,10 @@ class Orchestrator:
 
     def connect_packages(self):
         docker_compose = DockerComposeBuilder()
-        mysql_configuration = MysqlDatabaseConfiguration('mysql:5.7') \
-            .add_database_user('gardens') \
-            .add_database_name('gardens') \
-            .add_database_password('gardens') \
-            .add_root_password('root')
+
 
         docker_compose.add_version() \
-            .add_database(mysql_configuration)
+            .add_database(self.database_configuration)
 
         for component in self.components.values():
             docker_compose.add_service(component)
