@@ -6,6 +6,7 @@
 
 <script>
 import HomeSection from "./components/HomeSection.vue";
+
 export default {
     name: "app",
     components: {

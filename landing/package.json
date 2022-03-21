@@ -8,9 +8,12 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "pinia": "^2.0.11",
     "vue": "^3.2.29",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue-simple-alert": "^1.1.1",
+    "vue-sweetalert2": "^5.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

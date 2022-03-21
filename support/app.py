@@ -31,12 +31,12 @@ db.create_all()
 #    os.mkdir(UPLOAD_FOLDER)
 
 
-@app.route('/support/active')
+@app.get('/support/active')
 def get_active_support():
     return ''
 
 
-@app.route('/save-message')
+@app.post('/save-message')
 def update_message():
     form_data = request.json
     if not (form_data['business'] and form_data['email'] and form_data['message']):
