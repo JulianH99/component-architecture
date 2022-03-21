@@ -101,7 +101,7 @@ def show_banner_configuration():
 @app.get('/api/banner')
 def get_api_banner():
     banner_configuration = Banner.query.get(1)
-    banner_configuration.background_image = f"{request.base_url}{banner_configuration.background_image}"
+    banner_configuration.background_image = f"{request.host_url[:-1]}{banner_configuration.background_image}"
 
     return jsonify({
         'title': banner_configuration.title,
