@@ -2,7 +2,7 @@
     <div id="home" v-if="error === false">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <a href="#home" class="navbar-brand">
-                <img src="" alt="Brand" />
+                <img src="@/assets/images/Logo.png" alt="Brand" />
             </a>
             <button
                 type="button"
@@ -42,7 +42,8 @@
             >
                 Contactar soporte
             </a>
-            
+            <br>
+
             <Teleport to="body" v-if="activeModal === '' ">
                 <modal :show="showModal" @close="showModal = false" id="ventana">
                     <template #header>
@@ -51,6 +52,20 @@
                 </modal>
             </Teleport>
         </div>
+        <footer id="fotter">
+            <div class="row justify-content-center">
+                <div class="col-md-5 text-center">
+                    <br>
+                    <img src="../assets/images/logo.png" />
+                    <br>
+                    <br>
+                    <p> DISEÑO ARQUITECTURAL DE SOFTWARE Y PATRONES </p>
+                    <strong>Presentado por: </strong>
+                    
+                </div>
+            </div>
+            <hr class="footer-hr" />
+        </footer>
     </div>
 </template>
 
@@ -102,15 +117,25 @@ export default {
 </script>
 
 <style scoped>
+
 .navbar {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 0.9rem;
     letter-spacing: 0.1rem;
-    background-color: rgba(0, 0, 0, 0.7) !important;
+    background-color:   rgba(42, 87, 13, 0.459) !important;
 }
 .navbar-brand img {
-    height: 2rem;
+    height: 3rem;
+}
+
+#fotter{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    background-color:   rgb(55, 97, 47) !important;
 }
 .navbar-toggler {
     outline: none !important;
