@@ -17,9 +17,6 @@
                     <li class="nav-item">
                         <a href="#home" class="nav-link">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link">Contact</a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -57,10 +54,6 @@
             </Teleport>
         </div>
         <div v-else>
-            <br />
-            <br />
-            <br />
-            <br />
             <div class="alert alert-warning" role="alert">
                 <b>Uy!</b> La página no ha cargado correctamente, estamos trabajando en ello
             </div>
@@ -73,26 +66,6 @@
                     <img src="@/assets/images/Logo.png" />
                     <br />
                 </div>
-                <div class="col-md-4 text-center">
-                    <br />
-                    <p>DISEÑO ARQUITECTURAL DE SOFTWARE Y PATRONES</p>
-                    <strong>Presentado por: </strong>
-                    <br />
-                    <br />
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            Juan Camilo Sánchez - 20171020131
-                        </li>
-                        <li class="list-group-item">
-                            Julián Barrios - 20171020123
-                        </li>
-                        <li class="list-group-item">
-                            Sebastian Chacon Benitez - 20171020148
-                        </li>
-                    </ul>
-                    <br />
-                </div>
-                <div class="col-md-3"></div>
             </div>
         </footer>
     </div>
