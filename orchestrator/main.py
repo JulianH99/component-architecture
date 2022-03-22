@@ -18,6 +18,8 @@ orchestrator = Orchestrator()
 orchestrator.set_config_handler(config_handler)
 orchestrator.set_database_configuration(mysql_configuration)
 
+orchestrator.remove_built_packages()
+
 orchestrator.collect_packages()
 orchestrator.configure_packages()
 orchestrator.connect_packages()

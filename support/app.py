@@ -1,9 +1,12 @@
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
+
+CORS(app)
 
 # UPLOAD_FOLDER = os.path.join('static', 'uploads')
 
@@ -28,12 +31,12 @@ db.create_all()
 #    os.mkdir(UPLOAD_FOLDER)
 
 
-@app.route('/support/active')
+@app.get('/support/active')
 def get_active_support():
     return ''
 
 
-@app.route('/save-message')
+@app.post('/save-message')
 def update_message():
     form_data = request.json
     if not (form_data['business'] and form_data['email'] and form_data['message']):

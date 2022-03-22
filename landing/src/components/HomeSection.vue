@@ -1,8 +1,8 @@
 <template>
-    <div id="home">
+    <div id="home" v-if="error === false">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
             <a href="#home" class="navbar-brand">
-                <img src="" alt="Brand" />
+                <img src="@/assets/images/Logo.png" alt="Brand" />
             </a>
             <button
                 type="button"
@@ -23,37 +23,56 @@
                 </ul>
             </div>
         </nav>
-        <div 
+        <div
+        v-if="banner"
         class="hero home-hero"
         :style="{backgroundImage:`url(${banner.background_image})`}"
         >
             <div class="overlay"></div>
         </div>
         <div class="caption text-center">
-            <h1>{{ banner.title }}</h1>
-            <h3>{{ banner.description }}</h3>
+            <h1 v-if="banner">{{ banner.title }}</h1>
+            <h3 v-if="banner">{{ banner.description }}</h3>
             <a
                 target="_blank"
                 class="btn btn-outline-light btn-lg"
                 id="show-modal" 
                 @click="showModal = true"
+                v-if="activeModal === '' "
             >
                 Contactar soporte
             </a>
-            
+            <br>
+
             <Teleport to="body" v-if="activeModal === '' ">
-                <modal :show="showModal">
+                <modal :show="showModal" @close="showModal = false" id="ventana">
                     <template #header>
                         <h3>Contactar soporte</h3>
                     </template>
                 </modal>
             </Teleport>
         </div>
+        <footer id="fotter">
+            <div class="row justify-content-center">
+                <div class="col-md-5 text-center">
+                    <br>
+                    <img src="../assets/images/logo.png" />
+                    <br>
+                    <br>
+                    <p> DISEÑO ARQUITECTURAL DE SOFTWARE Y PATRONES </p>
+                    <strong>Presentado por: </strong>
+                    
+                </div>
+            </div>
+            <hr class="footer-hr" />
+        </footer>
     </div>
 </template>
 
 <script>
-import Modal from '../components/Modal.vue'
+import Modal from '../components/Modal.vue';
+import axios from "axios";
+
 export default {
     name: "home",
     data() {
@@ -61,41 +80,62 @@ export default {
             banner: null,
             title: null,
             activeModal: null,
-            showModal: false
+            showModal: false,
+            error: false,
         }
     },
     mounted(){
          axios
          .get('http://127.0.0.1:5000/api/banner')
          .then(response => (this.banner = response.data))
-         .catch(error => console.log(error)),
+         .catch(error => {
+             this.$swal({ icon:'error', title: 'Error: Cargando el banner'});
+             console.log(error);
+             this.error = true;
+         }),
          axios
          .get('http://127.0.0.1:5000/api/title')
          .then(response => (this.title = response.data))
-         .catch(error => console.log(error)),
+         .catch(error => {
+             this.$swal({ icon:'error', title: 'Error: Cargando el titulo'});
+             console.log(error);
+             this.error = true;
+         }),
          axios
          .get('http://127.0.0.1:5100/support/active')
          .then(response => (this.activeModal = response.data))
-         .catch(error => console.log(error))
+         .catch(error => {
+             this.$swal({ icon:'error', title: 'Error: Cargando el titulo'});
+             console.log(error);
+             this.error = true;
+         })   
     },
     components: {
         Modal
-    },
-    methods: {
     }
 };
 </script>
 
 <style scoped>
+
 .navbar {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 0.9rem;
     letter-spacing: 0.1rem;
-    background-color: rgba(0, 0, 0, 0.7) !important;
+    background-color:   rgba(42, 87, 13, 0.459) !important;
 }
 .navbar-brand img {
-    height: 2rem;
+    height: 3rem;
+}
+
+#fotter{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    background-color:   rgb(55, 97, 47) !important;
 }
 .navbar-toggler {
     outline: none !important;

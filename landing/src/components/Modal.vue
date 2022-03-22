@@ -22,14 +22,9 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <a
-                target="_blank"
-                class="btn btn-outline-light btn-lg"
-                id="show-modal" 
-                @click="saveMessage"
-              >Aceptar
-              </a>
-            </slot>
+              <button type="button" class="btn btn-primary" @click="saveMessage">Aceptar</button>
+              <button type="button" class="btn btn-primary" @click="$emit('close')">Cerrar</button>
+            </slot> 
           </div>
         </div>
       </div>
@@ -38,6 +33,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   props: {
     show: Boolean,
@@ -51,20 +48,22 @@ export default {
   },
   methods: {
     saveMessage: function(){
-      axios
-      .post("http://127.0.0.1:5100/save-message",
-      {
-        "business": this.asunto,
-        "email": this.email,
-        "message": this.message
-      })
-      .then((result) => { console.log(result);});
-    },
-    getMessages: function(){
-      axios
-        .get('http://127.0.0.1:5100/support/messages')
-        .then(response => (console.log(response.data)))
+      if (this.asunto && this.email && this.message) {
+        axios
+        .post("http://127.0.0.1:5100/save-message",
+        {
+          "business": this.asunto,
+          "email": this.email,
+          "message": this.message
+        })
+        .then(result => {
+          console.log(result);
+          this.$swal({ icon:'success', title: 'Mensaje enviado', target: document.getElementById('ventana')});
+          })  
         .catch(error => console.log(error))
+      } else {
+        this.$swal({ icon:'error', title: 'Error: Campos vacios', target: document.getElementById('ventana')});
+      }
     }
   }
 };
@@ -78,7 +77,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.753);
   display: table;
   transition: opacity 0.3s ease;
 }
@@ -99,7 +98,7 @@ export default {
 }
 
 .modal-header h3 {
-  margin-top: 0;
+  text-align: center;
   color: #42b983;
 }
 

@@ -3,10 +3,13 @@
 import site
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
+
+CORS(app)
 
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 
@@ -89,7 +92,7 @@ def show_banner_configuration():
         else:
             banner_configuration.title = form_data['banner-title']
             banner_configuration.description = form_data['banner-description']
-            banner_configuration.background_image = f'/static/uploads/{filename}'
+            banner_configuration.background_image = f'static/uploads/{filename}'
 
         db.session.commit()
 
@@ -99,7 +102,7 @@ def show_banner_configuration():
 @app.get('/api/banner')
 def get_api_banner():
     banner_configuration = Banner.query.get(1)
-    banner_configuration.background_image = f"{request.base_url}{banner_configuration.background_image}"
+    banner_configuration.background_image = f"{request.host_url}{banner_configuration.background_image}"
 
     return jsonify({
         'title': banner_configuration.title,
