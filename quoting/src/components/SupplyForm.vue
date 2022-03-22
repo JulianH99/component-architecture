@@ -28,7 +28,7 @@
 <script>
 import axios from "axios"
 
-const host = 'http://localhost:5000/api/'
+const host = 'http://localhost:5200/api/'
 
 export default {
   name: "SupplyForm",
