@@ -62,14 +62,7 @@
             <br />
             <br />
             <div class="alert alert-warning" role="alert">
-                <b>ERROR:</b> CARGANDO DATOS, LOS DATOS QUE NO SE HAN CARGADO
-                SON
-                <div v-if="banner === null">
-                    - Banner -> 'http://127.0.0.1:5000/api/banner'
-                </div>
-                <div v-if="title === null">
-                    - Titulo -> 'http://127.0.0.1:5000/api/title'
-                </div>
+                <b>Uy!</b> La página no ha cargado correctamente, estamos trabajando en ello
             </div>
         </div>
         <footer id="fotter">
