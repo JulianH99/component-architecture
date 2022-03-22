@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = 'gPbM^#;49m9g+swb@Pl]X5qB@.tb%t'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost:3306/gardens'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://gardens:gardens@db:3306/gardens'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
