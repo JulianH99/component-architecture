@@ -1,5 +1,6 @@
-from flask import Flask, Response, render_template, request, redirect, flash, url_for
+from flask import Flask, Response, render_template, request, redirect, flash, url_for, Blueprint, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -24,6 +25,9 @@ db.create_all()
 
 # if not os.path.isdir(UPLOAD_FOLDER):
 #     os.mkdir(UPLOAD_FOLDER)
+
+api = Blueprint('api', __name__, template_folder='templates', url_prefix='/api')
+CORS(api)
 
 
 @app.route('/')
@@ -61,6 +65,20 @@ def new_supply():
         except:
             flash("the sku has different")
             return redirect(request.url)
+
+
+@api.get('/alive')
+def api_status():
+    return Response(status=200)
+
+
+@api.get('/supply')
+def get_products():
+    products = Supply.query.all()
+    return jsonify([(dict(product.as_dict())) for product in products])
+
+
+app.register_blueprint(api)
 
 
 if __name__ == '__main__':

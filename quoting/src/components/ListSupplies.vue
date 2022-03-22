@@ -11,9 +11,17 @@
         <tfoot>
             <tr>
                 <th colspan="3">Total Supplies</th>
-                <th>1000</th>
+                <th>{{ total }}</th>
             </tr>
         </tfoot>
+        <tbody>
+            <tr v-for="supply in supplies" :key="supply.id">
+                <td>{{supply.name}}</td>
+                <td>{{supply.qty}}</td>
+                <td>{{supply.price_suggested}}</td>
+                <td>{{supply.qty * supply.price_suggested}}</td>
+            </tr>
+        </tbody>
     </table>
 </template>
 
@@ -21,5 +29,6 @@
 export default {
   name: "ListSupplies",
   components: {},
+  props: ['supplies', 'total'],
 };
 </script>
