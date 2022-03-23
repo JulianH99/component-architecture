@@ -5,9 +5,12 @@
     <SupplyForm @add:supply="addSupply($event)" />
     <ListSupplies :supplies="quote.supplies" :total="quote.total" />
   </div>
-  <div v-else>
-    <p>Page not found</p>
-  </div>
+  <section class="hero is-danger" v-else>
+    <div class="hero-body">
+      <p class="title">Error: The service not found</p>
+      <p class="subtitle">Please contact with your IT center</p>
+    </div>
+  </section>
 </template>
 
 <script>

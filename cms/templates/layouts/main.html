@@ -44,4 +44,13 @@
             </div>
         </div>
     </body>
+    <script>
+        // Get status From Inventory
+        fetch('http://127.0.0.1:5200/api/alive')
+        .then(res => {
+            if (res.ok){
+                document.getElementById('inventory').style.display = 'block'
+            }
+        })
+    </script>
 </html>

@@ -3,9 +3,19 @@
     <ul class="menu-list">
         <li><a href="{{ url_for('index') }}">Basic site configuration</a></li>
         <li>
-            <a href="{{ url_for('show_banner_configuration') }}"
-                >Banner configuration</a
-            >
+            <a href="{{ url_for('show_banner_configuration') }}">
+                Banner configuration
+            </a>
+        </li>
+        <li id="inventory" style="display: none">
+            <a href="http://127.0.0.1:5200/" target="_blank">
+                Inventory Component
+            </a>
+        </li>
+        <li id="quoting" style="display: none">
+            <a href="http://127.0.0.1:8081/" target="_blank">
+                Support
+            </a>
         </li>
     </ul>
 </aside>

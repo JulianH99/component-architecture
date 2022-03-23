@@ -16,6 +16,15 @@
     </head>
     <body>
         <div class="container">
+            <div class="columns my-3">
+                <div class="column">
+                    <h1
+                        class="title has-text-white has-background-primary py-2 px-5 cms-title"
+                    >
+                        Garden Inventory
+                    </h1>
+                </div>
+            </div>
             {% with messages = get_flashed_messages(category_filter=['error'])
             %} {% if messages %}
 
@@ -26,8 +35,22 @@
             </div>
 
             {% endif %} {% endwith %}
-            {% include 'includes/menu.html' %}
-            {% block content%} {% endblock %}
+            <div class="columns mt-5">
+                <div class="column is-one-quarter">
+                    {% include 'includes/menu.html' %}
+                </div>
+
+                <div class="column">{% block content%} {% endblock %}</div>
+            </div>
         </div>
     </body>
+    <script>
+        // Get status From Quoting
+        fetch('http://127.0.0.1:8081/')
+        .then(res => {
+            if (res.ok){
+                document.getElementById('quoting').style.display = 'block'
+            }
+        })
+    </script>
 </html>
