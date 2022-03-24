@@ -56,7 +56,7 @@ def update_message():
         return jsonify({'message': 'Error: Message not save'})
 
 
-@app.route('/support/messages')
+@app.get('/support/messages')
 def show_messages():
     messages = Message.query.all()
-    return jsonify(messages)
+    return jsonify([(dict(message.as_dict())) for message in messages])

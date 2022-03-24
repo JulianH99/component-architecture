@@ -54,7 +54,7 @@
             </Teleport>
         </div>
         <div v-else>
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" id="error">
                 <b>Uy!</b> La página no ha cargado correctamente, estamos trabajando en ello
             </div>
         </div>
@@ -121,6 +121,15 @@ export default {
     font-size: 0.9rem;
     letter-spacing: 0.1rem;
     background-color: rgba(42, 87, 13, 0.459) !important;
+}
+
+footer {
+    padding-bottom: 3%;
+}
+
+#error {
+    margin-top: 7%;
+    text-align: center;
 }
 
 ul {
